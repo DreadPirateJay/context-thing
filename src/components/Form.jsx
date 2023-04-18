@@ -1,13 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
+import { ThingsContext } from '../App';
+import { useContext } from 'react';
 
 const Form = (props) => {
   const [thing, setThing] = useState('');
+  const { handleThingChange } = useContext(ThingsContext);
 
   const onChange = e => setThing(e.target.value);
   const onClick = e => {
     e.preventDefault();
-    props.handleThingChange(thing);
+    handleThingChange(thing);
   }
 
   return (

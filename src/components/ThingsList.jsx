@@ -1,8 +1,11 @@
-import React from 'react'
+import { useContext } from "react"
+import { ThingsContext } from "../App"
 
-const ThingsList = (props) => {
+const ThingsList = () => {
+  const { things } = useContext(ThingsContext);
+
   return (
-    <ul>{props.things.map(thing => <li>{thing}</li>)}</ul>
+    <ul>{things.map((thing, idx) => <li key={idx}>{thing}</li>)}</ul>
   )
 }
 

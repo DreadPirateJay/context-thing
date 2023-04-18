@@ -1,18 +1,21 @@
-import { useState } from 'react'
+import { useState, createContext } from 'react'
 import Form from './components/Form'
 import ThingsList from './components/ThingsList'
 import './App.css'
 
+export const ThingsContext = createContext()
+
 function App() {
-  const [count, setCount] = useState(0);
   const [things, setThings] = useState([]);
 
   const handleThingChange = (thing) => setThings(oldThings => [...oldThings, thing])
 
   return (
     <div className="App">
-      <Form handleThingChange={handleThingChange} />
-      <ThingsList things={things} />
+      <ThingsContext.Provider value={{ things, handleThingChange }}>
+        <Form />
+        <ThingsList />
+      </ThingsContext.Provider>
     </div>
   )
 }
