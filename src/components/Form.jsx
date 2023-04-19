@@ -1,21 +1,25 @@
-import React from 'react'
 import { useState } from 'react'
+import { v4 as uuid } from 'uuid'
 import { ThingsContext } from '../App';
 import { useContext } from 'react';
 
 const Form = (props) => {
-  const [thing, setThing] = useState('');
-  const { handleThingChange } = useContext(ThingsContext);
+  const [thing, setThing] = useState({ title: '', id: uuid() });
+  const { addNewThing } = useContext(ThingsContext);
 
-  const onChange = e => setThing(e.target.value);
+  const onChange = e => setThing(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const onClick = e => {
     e.preventDefault();
-    handleThingChange(thing);
+    addNewThing(thing);
+    setThing({ title: '', id: uuid() })
   }
 
   return (
     <form>
-      <input type="text" placeholder="Thing" name="thing" value={thing} onChange={onChange} />
+      <fieldset>
+        <label htmlFor="title">Title</label>
+        <input type="text" placeholder="Title" name="title" value={thing.title} onChange={onChange} />
+      </fieldset>
       <button onClick={onClick}>Save</button>
     </form>
   )
